@@ -14,7 +14,7 @@ class Solution(abc.ABC):
 
     ### Used to execute search algorithm
     @abc.abstractmethod
-    def execute(self, generations, population):
+    def execute(self, *args):
         ...
 
     ### Takes results after execute, creates animated gif with history progress of finding global minimum
@@ -34,7 +34,7 @@ class Solution(abc.ABC):
 
         animation.animate_3d()
 
-    def show_heatmap(self, segments = 150):
+    def animate_heatmap(self, segments = 150):
         animation = Animation(
             self.results,
             self.lower_bound,
@@ -47,3 +47,17 @@ class Solution(abc.ABC):
         )
 
         animation.animate_heatmap()
+
+    def animate_path(self, segments = 150):
+        animation = Animation(
+            self.results,
+            self.lower_bound,
+            self.upper_bound,
+            segments,
+            self.function,
+            self.name,
+            wired=False,
+            duration=200
+        )
+
+        animation.animate_path()

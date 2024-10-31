@@ -97,6 +97,36 @@ class Animation:
 
         return img
 
+    def make_frame_path(self, path = None):
+        fig = plt.figure(figsize=plt.figaspect(1))
+        ax = fig.subplots()
+
+        points = np.array(path)  # Convert to a NumPy array if not already
+
+        # Scatter plot for the points
+        ax.scatter(points[:, 0], points[:, 1], color="blue", label="Points")
+
+        # Draw lines between adjacent points
+        for i in range(len(points) - 1):
+            ax.plot([points[i][0], points[i + 1][0]], [points[i][1], points[i + 1][1]], color="red", linewidth=1)
+
+        # Label the points for clarity
+        for idx, (x, y) in enumerate(points):
+            ax.text(x, y, f"{idx}", fontsize=12, ha="right")
+
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.legend()
+
+        buf = io.BytesIO()
+        fig.savefig(buf, format="png", dpi=170)
+        buf.seek(0)
+
+        img = Image.open(buf).copy()
+        buf.close()
+
+        return img
+
     def animate_heatmap(self):
         for one_data in self.data:
             last_frame = [one_data[0], one_data[1], self.func(one_data)]
@@ -104,6 +134,23 @@ class Animation:
 
         for _ in range(10):
             self.frames.append(self.make_frame_heatmap(last_frame))
+
+        print(self.name + " is Done")
+
+        # save final gif
+        self.frames[0].save(self.path, save_all=True, append_images=self.frames[1:], duration=self.duration, loop=0)
+
+        # close all frames
+        for frame in self.frames:
+            frame.close()
+
+
+    def animate_path(self):
+        for one_data in self.data:
+            self.frames.append(self.make_frame_path(one_data))
+
+        for _ in range(10):
+            self.frames.append(self.make_frame_path(one_data))
 
         print(self.name + " is Done")
 

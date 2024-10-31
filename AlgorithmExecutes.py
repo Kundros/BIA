@@ -12,7 +12,7 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result()
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()
 
     @staticmethod
     def ashley(alg, generations = 1000, population = 10, method_display="3d"):
@@ -22,7 +22,7 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result()
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()
 
     @staticmethod
     def rastrigin(alg, generations = 1000, population = 10, method_display="3d"):
@@ -32,7 +32,7 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result()
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()
 
     @staticmethod
     def rosenbrock(alg, generations = 1000, population = 10, method_display="3d"):
@@ -41,7 +41,7 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result()
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()
 
     @staticmethod
     def griewank(alg, generations = 1000, population = 10, method_display="3d"):
@@ -51,7 +51,7 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result(wired=True)
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()
 
     @staticmethod
     def schwefel(alg, generations = 1000, population = 10, method_display="3d"):
@@ -61,7 +61,7 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result(wired=True)
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()
 
     @staticmethod
     def levy(alg, generations = 1000, population = 10, method_display="3d"):
@@ -71,7 +71,7 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result()
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()
 
     @staticmethod
     def michelewicz(alg, generations = 1000, population = 10, method_display="3d"):
@@ -81,7 +81,7 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result(wired=True)
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()
 
     @staticmethod
     def zakharow(alg, generations = 1000, population = 10, method_display="3d"):
@@ -91,4 +91,4 @@ class AlgorithmExecutes:
         if method_display == "3d":
             algorithm.animate_result()
         else:
-            algorithm.show_heatmap()
+            algorithm.animate_heatmap()

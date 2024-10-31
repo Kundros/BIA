@@ -1,4 +1,3 @@
-import random
 from abc import ABC
 
 import numpy as np
@@ -35,6 +34,7 @@ class Annealing(Solution, ABC):
                 if x_1[d] > self.upper_bound * edge_ratio:
                     x_1[d] = self.upper_bound * edge_ratio
 
+            # evaluate the function for both last and the new param
             f_x = self.function(self.results[-1])
             f_x_1 = self.function(x_1)
 
@@ -43,8 +43,10 @@ class Annealing(Solution, ABC):
             if energy_variation < 0:
                 self.results.append(x_1)
             else:
+                # random value <0,1)
                 r = np.random.uniform(0, 1)
 
+                # evaluate if jump will be made
                 if r < (np.e ** (-energy_variation/T)):
                     self.results.append(x_1)
 
