@@ -38,7 +38,7 @@ class Animation:
         self.path = name + ".gif"
 
     ### Generates blob containing the image of graph (frame)
-    def make_frame_3d(self, point = None):
+    def make_frame_3d(self, points = None):
         fig = plt.figure(figsize=plt.figaspect(1))
         ax = fig.add_subplot(1, 1, 1, projection='3d', computed_zorder=True)
         ax.view_init(45, -45 + self.add_angle, 0)
@@ -55,10 +55,11 @@ class Animation:
             ax.plot_surface(self.X, self.Y, self.Z, rstride=1, cstride=1, cmap="turbo", linewidth=0)
 
         # plot the point if is not a None
-        if point is not None:
-            ax.plot(point[0], point[1], point[2], 'o-', color='red', markersize=4, dash_capstyle="projecting", antialiased=False, zorder=10)
-            # print text with Z value
-            ax.text(point[0], point[1], point[2] , str(round(point[2], 2)), horizontalalignment='center', verticalalignment='top', bbox=dict(facecolor='orange', alpha=0.4), zorder=11)
+        if points is not None:
+            for point in points:
+                ax.plot(point[0], point[1], point[2], 'o-', color='red', markersize=4, dash_capstyle="projecting", antialiased=False, zorder=10)
+                # print text with Z value
+                ax.text(point[0], point[1], point[2] , str(round(point[2], 2)), horizontalalignment='center', verticalalignment='top', bbox=dict(facecolor='orange', alpha=0.4), zorder=11)
 
         buf = io.BytesIO()
         fig.savefig(buf, format="png", dpi=170)
@@ -69,7 +70,7 @@ class Animation:
 
         return img
 
-    def make_frame_heatmap(self, point = None):
+    def make_frame_heatmap(self, points = None):
         fig = plt.figure(figsize=plt.figaspect(1))
         ax = fig.subplots()
 
@@ -80,13 +81,14 @@ class Animation:
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
 
-        # plot the point if is not a None
-        if point is not None:
-            ax.plot(point[0], point[1], 'o-', color='red', markersize=4, dash_capstyle="projecting",
-                    antialiased=False, zorder=10)
-            # print text with Z value
-            ax.text(point[0], point[1], str(round(point[2], 2)), horizontalalignment='center',
-                    verticalalignment='top', bbox=dict(facecolor='orange', alpha=0.4), zorder=11)
+        # plot the points if is not a None
+        if points is not None:
+            for point in points:
+                ax.plot(point[0], point[1], 'o-', color='red', markersize=4, dash_capstyle="projecting",
+                        antialiased=False, zorder=10)
+                # print text with Z value
+                ax.text(point[0], point[1], str(round(point[2], 2)), horizontalalignment='center',
+                        verticalalignment='top', bbox=dict(facecolor='orange', alpha=0.4), zorder=11)
 
         buf = io.BytesIO()
         fig.savefig(buf, format="png", dpi=170)
@@ -129,11 +131,15 @@ class Animation:
 
     def animate_heatmap(self):
         for one_data in self.data:
-            last_frame = [one_data[0], one_data[1], self.func(one_data)]
-            self.frames.append(self.make_frame_heatmap(last_frame))
+            if isinstance(one_data[0], (list, tuple, np.ndarray)):
+                points = [[x[0], x[1], self.func(x)] for x in one_data]
+            else:
+                points = [[one_data[0], one_data[1], self.func(one_data)]]
+
+            self.frames.append(self.make_frame_heatmap(points))
 
         for _ in range(10):
-            self.frames.append(self.make_frame_heatmap(last_frame))
+            self.frames.append(self.make_frame_heatmap(points))
 
         print(self.name + " is Done")
 
@@ -176,7 +182,10 @@ class Animation:
 
             # update the point to be equally spread in whole animation
             if i * int(ceil((rots * .8) / len_data)) < len_frames and i + 1 < len_data:
-                last_frame = [one_data[0], one_data[1], self.func(one_data)]
+                if isinstance(one_data[0], (list, tuple, np.ndarray)):
+                    last_frame = [[x[0], x[1], self.func(x)] for x in one_data]
+                else:
+                    last_frame = [[one_data[0], one_data[1], self.func(one_data)]]
                 i += 1
 
             self.frames.append(self.make_frame_3d(last_frame))

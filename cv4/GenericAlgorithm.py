@@ -1,4 +1,3 @@
-import math
 from abc import ABC
 
 import numpy

@@ -5,9 +5,9 @@ from Functions import Functions
 # Used for executing individual algorithms and generating corresponding gif
 class AlgorithmExecutes:
     @staticmethod
-    def sphere(alg, generations = 1000, population = 10, method_display="3d"):
+    def sphere(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Sphere, -10, 10, 2, "Sphere")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
 
         if method_display == "3d":
             algorithm.animate_result()
@@ -15,9 +15,9 @@ class AlgorithmExecutes:
             algorithm.animate_heatmap()
 
     @staticmethod
-    def ashley(alg, generations = 1000, population = 10, method_display="3d"):
+    def ashley(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Ackley, -40, 40, 2, "Ackley")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
 
         if method_display == "3d":
             algorithm.animate_result()
@@ -25,9 +25,9 @@ class AlgorithmExecutes:
             algorithm.animate_heatmap()
 
     @staticmethod
-    def rastrigin(alg, generations = 1000, population = 10, method_display="3d"):
+    def rastrigin(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Rastrigin, -5, 5, 2, "Rastrigin")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
 
         if method_display == "3d":
             algorithm.animate_result()
@@ -35,18 +35,18 @@ class AlgorithmExecutes:
             algorithm.animate_heatmap()
 
     @staticmethod
-    def rosenbrock(alg, generations = 1000, population = 10, method_display="3d"):
+    def rosenbrock(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Rosenbrock, -6, 6, 2, "Rosenbrock")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
         if method_display == "3d":
             algorithm.animate_result()
         else:
             algorithm.animate_heatmap()
 
     @staticmethod
-    def griewank(alg, generations = 1000, population = 10, method_display="3d"):
+    def griewank(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Griewank, -5, 5, 2, "Griewank")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
 
         if method_display == "3d":
             algorithm.animate_result(wired=True)
@@ -54,9 +54,9 @@ class AlgorithmExecutes:
             algorithm.animate_heatmap()
 
     @staticmethod
-    def schwefel(alg, generations = 1000, population = 10, method_display="3d"):
+    def schwefel(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Schwefel, -500, 500, 2, "Schwefel")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
 
         if method_display == "3d":
             algorithm.animate_result(wired=True)
@@ -64,9 +64,9 @@ class AlgorithmExecutes:
             algorithm.animate_heatmap()
 
     @staticmethod
-    def levy(alg, generations = 1000, population = 10, method_display="3d"):
+    def levy(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Levy, -10, 10, 2, "Levy")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
 
         if method_display == "3d":
             algorithm.animate_result()
@@ -74,9 +74,9 @@ class AlgorithmExecutes:
             algorithm.animate_heatmap()
 
     @staticmethod
-    def michelewicz(alg, generations = 1000, population = 10, method_display="3d"):
+    def michelewicz(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Michelewicz, 0, np.pi, 2, "Michelewicz")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
 
         if method_display == "3d":
             algorithm.animate_result(wired=True)
@@ -84,9 +84,9 @@ class AlgorithmExecutes:
             algorithm.animate_heatmap()
 
     @staticmethod
-    def zakharow(alg, generations = 1000, population = 10, method_display="3d"):
+    def zakharow(alg, generations = 1000, population = 10, method_display="3d", *other):
         algorithm = alg(Functions.Zakharow, -10, 10, 2, "Zakharow")
-        algorithm.execute(generations, population)
+        algorithm.execute(generations, population, *other)
 
         if method_display == "3d":
             algorithm.animate_result()
