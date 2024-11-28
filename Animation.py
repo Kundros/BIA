@@ -111,6 +111,8 @@ class Animation:
         # Draw lines between adjacent points
         for i in range(len(points) - 1):
             ax.plot([points[i][0], points[i + 1][0]], [points[i][1], points[i + 1][1]], color="red", linewidth=1)
+        # connect ends
+        ax.plot([points[0][0], points[-1][0]], [points[0][1], points[-1][1]], color="red", linewidth=1)
 
         # Label the points for clarity
         for idx, (x, y) in enumerate(points):
@@ -155,7 +157,7 @@ class Animation:
         for one_data in self.data:
             self.frames.append(self.make_frame_path(one_data))
 
-        for _ in range(10):
+        for _ in range(30):
             self.frames.append(self.make_frame_path(one_data))
 
         print(self.name + " is Done")

@@ -9,7 +9,7 @@ from Solution import Solution
 
 class SOMA(Solution, ABC):
     def __init__(self, function, lower_bound, upper_bound, dimensions, name):
-        super().__init__(function, lower_bound, upper_bound, dimensions, "PSO_" + name)
+        super().__init__(function, lower_bound, upper_bound, dimensions, "SOMA_" + name)
 
 
     ### pop_size >= 2, prt = <0, 1>, step = (0, 1>, min_div = (0, 1>, path_len = (0, 5>
@@ -23,23 +23,30 @@ class SOMA(Solution, ABC):
             population.copy()
         ]
 
+        # generate all migrations
         for _ in range(migrations):
+            # tweak population
             for i, x in enumerate(population):
                 t = 0
                 local_best = population[i].copy()
+                # follow line path by steps
                 while t <= path_len:
                     prt_vector = [(1 if np.random.uniform() < prt else 0 )for _ in range(self.dimensions)]
+                    # new potential position clipped to borders
                     potent = np.clip(
+                        # calculate new position
                         population[i] + (best_individual - population[i]) * t * prt_vector,
                         self.lower_bound, 
                         self.upper_bound
                     )
 
+                    # if potential position is better than local best, update it
                     if self.function(potent) < self.function(local_best):
                         local_best = potent
 
                     t += step
 
+                # update individual if is better
                 if self.function(local_best) < self.function(population[i]):
                     population[i] = local_best
 

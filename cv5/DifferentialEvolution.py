@@ -1,9 +1,7 @@
 from abc import ABC
 import random
-from traceback import print_last
 
 import numpy as np
-from six import print_
 
 from Solution import Solution
 
@@ -21,6 +19,7 @@ class DifferentialEvolution(Solution, ABC):
             population
         ]
 
+        # iterate all generations
         for _ in range(generations):
             new_population = population.copy()
 
@@ -30,6 +29,7 @@ class DifferentialEvolution(Solution, ABC):
                     if r1 != i and r2 != i and r3 != i:
                         break
 
+                # 3 other distinct individuals
                 x_r1 = new_population[r1]
                 x_r2 = new_population[r2]
                 x_r3 = new_population[r3]
@@ -46,6 +46,7 @@ class DifferentialEvolution(Solution, ABC):
                 u = np.zeros(self.dimensions)
                 j_rnd = np.random.randint(0, self.dimensions)
 
+                # make crossover
                 for j in range(self.dimensions):
                     if np.random.uniform() < CR or j == j_rnd:
                         u[j] = v[j]
@@ -54,7 +55,7 @@ class DifferentialEvolution(Solution, ABC):
 
                 f_u = self.function(u)
 
-                if f_u <= self.function(citizen):  # We always accept a solution with the same fitness as a target vector
+                if f_u <= self.function(citizen):
                     new_population[i] = u
 
                 population = new_population
