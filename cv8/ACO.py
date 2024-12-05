@@ -81,14 +81,17 @@ class ACO(Solution, ABC):
                     best = sum_paths[ant_id]
                     best_id = ant_id
 
+            # add new best to results
             if glob_best is None or best < glob_best:
                 glob_best = best
                 self.results.append([cities[i] for i in ant_paths[best_id]])
 
+            # vaporize pheromones
             for i in range(cities_number):
                 for j in range(cities_number):
                     pheromone_matrix[i][j] *= (1 - ro)
 
+            # add new pheromones from each ant
             for i, x in enumerate(ant_paths):
                 delta_tau = Q / sum_paths[i]
                 for k in range(cities_number - 1):
